@@ -1,13 +1,16 @@
 # Alos Activity 4
 
 ## Introduction
-this is an iteration of the Alos Activity 3
 
-The FrontEnd has been built without React.js just Vanilla HTML and CSS Bootstrap and JS
+This is an updated version of Alos Activity 3.
 
-Dockerized The API and the FrontEnd
+The FrontEnd was created without the use of React.
 
-node_modules ignored in .dockerignore
+made up of only Vanilla HTML, CSS, Bootstrap, and JS.
+
+Dockerized The FrontEnd and the API
+
+.dockerignore ignores node modules
 
 ## Screenshots
 screenshot of the FrontEnd
