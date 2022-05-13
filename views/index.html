@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title>PrayerTimeDz</title>
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!--  import local javascript file from javascripts-->
+    <script src="javascripts/APICaller.js"></script>
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+
+
+</head>
+<body>
+
+<header>
+    <div class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <a href="#" class="navbar-brand d-flex align-items-center">
+                <!--        include image from public images as navbar brand-->
+                <img src="images/2800327.png" alt="logo" width="30" height="30">
+                <strong>PrayerTimeDz</strong>
+            </a>
+        </div>
+    </div>
+</header>
+
+<main>
+
+    <section class="py-5 text-center container" id="main_section">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <!--    should display name of the next prayer and remaining time    -->
+                <h1 class=" text-white" id="prayer_name"></h1>
+                <h2 class=" text-white" id="countdown"></h2>
+
+                <p class="lead text-white">Today's Hadith
+                    <br>
+                    عن أسد بن كرز رضي الله عنه قال النّبي صلّى الله عليه و سلّم : يا أسدُ بنَ كُرْزٍ ! لا تدخلُ الجنّةَ بعملٍ ولكن برحمةِ اللهِ
+                    قلتُ : ولا أنت يا رسولَ اللهِ ؟
+                    قال النّبي صلّى الله عليه و سلّم : ولا أنا إلاّ أن يتغمدَنيَ اللهُ منه برحمةٍ
+                    (رواه الطبراني و صححه الشيخ الألباني في السلسلة الصحيحة رقم ٣١٣٨
+                   </p>
+                <!-- three inline blue buttons -->
+            </div>
+            <div class="d-flex justify-content-center">
+<!--                map location button plus location name side by side -->
+                <button class="btn btn-primary" id="map_button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                        <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                    </svg>
+                    <span id="current_city"></span>
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">City Selector</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" id="city_list">
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="save_city">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div class="album py-5 bg-light container">
+        <div class="container">
+            <div class="d-flex justify-content-between" aria-label="Basic example">
+                <button type="button" class="btn btn-primary" id="previous_day">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-arrow-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                              d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                    </svg>
+                </button>
+                <p class="lead text-muted" id="today_date"></p>
+                <button type="button" class="btn btn-primary " id="next_day">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-arrow-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                              d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+<!--        padding between 2 divs-->
+        <div class="container p-3">
+        </div>
+        <div class="container d-flex">
+            <div class="container">
+
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 g-3">
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+                                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                                <rect width="100%" height="100%" fill="#55595c"/>
+                                <text font-size="4em" x="50%" y="50%" fill="#eceeef" dy=".3em">Fajr</text>
+                            </svg>
+
+                            <div class="card-body">
+                                <div class="d-flex justify-content-center">
+                                    <h2 class="text-muted align-content-center" id="fajr_time" >4:27</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="container">
+
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 g-3">
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+                                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                                <rect width="100%" height="100%" fill="#55595c"/>
+                                <text font-size="3.5em" x="50%" y="50%" fill="#eceeef" dy=".3em">Dhuhr</text>
+                            </svg>
+
+                            <div class="card-body">
+                                <div class="d-flex justify-content-center">
+                                    <h2 class="text-muted align-content-center" id="dhuhr_time">4:27</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="container">
+
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 g-3">
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+                                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                                <rect width="100%" height="100%" fill="#55595c"/>
+                                <text font-size="4em" x="50%" y="50%" fill="#eceeef" dy=".3em">Asr</text>
+                            </svg>
+
+                            <div class="card-body">
+                                <div class="d-flex justify-content-center">
+                                    <h2 class="text-muted align-content-center" id="asr_time" >4:27</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="container">
+
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 g-3">
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+                                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                                <rect width="100%" height="100%" fill="#55595c"/>
+                                <text font-size="2.9em" x="50%" y="50%" fill="#eceeef" dy=".3em">Maghrib</text>
+                            </svg>
+
+                            <div class="card-body">
+                                <div class="d-flex justify-content-center">
+                                    <h2 class="text-muted align-content-center" id="maghrib_time" >4:27</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="container">
+
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 g-3">
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+                                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                                <rect width="100%" height="100%" fill="#55595c"/>
+                                <text font-size="4em" x="50%" y="50%" fill="#eceeef" dy=".3em">Isha</text>
+                            </svg>
+
+                            <div class="card-body">
+                                <div class="d-flex justify-content-center">
+                                    <h2 class="text-muted align-content-center" id="isha_time" >4:27</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</main>
+
+<footer class="text-muted py-5">
+    <div class="container">
+        <p class="float-end mb-1">
+            <a href="#">Back to top</a>
+        </p>
+    </div>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+<script>
+    setCurrentCity("mostaganem")
+    fillModalWithCities()
+    getTodaysPrayers();
+    getNextPrayer();
+    getTomorrowsPrayers();
+    countdownTimer();
+    setInterval(countdownTimer, 1000);
+    setToday();
+    setBackground();
+    fillPrayerTimes();
+
+</script>
+
+</body>
+</html>
